@@ -1,0 +1,13 @@
+{
+  "name": "openwhisk-metrics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "sinon": "^4.1.2"
+  }
+}
