@@ -200,4 +200,3 @@ Metric service agents can return a Promise for asynchronous operations.
 Something gone wrong? OH NOES 😱!
 
 Open an issue in the repository and I'll have a look… 💯
-
