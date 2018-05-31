@@ -119,6 +119,15 @@ Metrics can be disabled by removing the metric handler from `metrics.collect`.
 metrics.collect.cpu = null
 ```
 
+### disable activationId in metrics
+
+Openwhisk activationId can be disable by setting `metrics.config.ignore_activation_ids` to `true`
+
+```javascript
+// disable activationid in metrics
+metrics.config.ignore_activation_ids = true
+```
+
 ## add custom metrics
 
 Set additional properties on the `metrics.collect` object to collect custom metrics.
