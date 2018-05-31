@@ -36,7 +36,7 @@ const metrics = fn => {
 metrics.label = util.label
 
 // default config
-metrics.config = [];
+metrics.config = {};
 
 // default metrics to collect
 metrics.collect = {
