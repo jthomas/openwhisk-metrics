@@ -4,6 +4,7 @@ import cpu from '../metrics/cpu'
 import error from '../metrics/error'
 import time from '../metrics/time'
 import coldstart from '../metrics/coldstart'
+import util from '../metrics/util'
 
 test('memory metric should return process memory', t => {
   const processMemUsage = process.memoryUsage()
@@ -73,4 +74,43 @@ test('cold start metric should return bool for first invocations', t => {
   t.is(cs(), 0)
   t.is(cs(), 0)
   t.is(cs(), 0)
+})
+
+test('util.label function should return label name with activation id for the metrics when config parameter is set to empty', t => {
+  process.env['__OW_NAMESPACE'] = 'testNamespace';
+  process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
+  process.env['__OW_ACTIVATION_ID']= 'testActivationId';
+  config = {}
+  let result = util.label('testLabel', config);
+  t.is(result, 'testNamespace.testAction.testActivationId.mylabel');
+})
+
+test('util.label function should return label name with activation id for the metrics when config parameter is set to null', t => {
+  process.env['__OW_NAMESPACE'] = 'testNamespace';
+  process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
+  process.env['__OW_ACTIVATION_ID']= 'testActivationId';
+  config = {};
+  config.ignore_activation_ids = null;
+  let result = util.label('testLabel', config);
+  t.is(result, 'testNamespace.testAction.testActivationId.mylabel');
+})
+
+test('util.label function should return label name without activation id for the metrics when config ignore_activation_ids parameter is set to true', t => {
+  process.env['__OW_NAMESPACE'] = 'testNamespace';
+  process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
+  process.env['__OW_ACTIVATION_ID']= 'testActivationId';
+  config = {};
+  config.ignore_activation_ids = true;
+  let result = util.label('testLabel', config);
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
+})
+
+test('util.label function should return label name with activation id for the metrics when config ignore_activation_ids parameter is set to false', t => {
+  process.env['__OW_NAMESPACE'] = 'testNamespace';
+  process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
+  process.env['__OW_ACTIVATION_ID']= 'testActivationId';
+  config = {};
+  config.ignore_activation_ids = false;
+  let result = util.label('testLabel', config);
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
 })
