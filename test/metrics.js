@@ -81,14 +81,14 @@ test('util.label function should return label name with or without activation id
   process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
   process.env['__OW_ACTIVATION_ID']= 'testActivationId';
   let result = util.label('testLabel', {});
-  t.is(result, 'testNamespace.testAction.testActivationId.testlabel');
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
   result = util.label('testLabel', {"ignore_activation_ids": null});
-  t.is(result, 'testNamespace.testAction.testActivationId.testlabel');
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
   result = util.label('testLabel', {"ignore_activation_ids": true});
-  t.is(result, 'testNamespace.testAction.testlabel');
+  t.is(result, 'testNamespace.testName.testLabel');
   result = util.label('testLabel', {"ignore_activation_ids": false});
-  t.is(result, 'testNamespace.testAction.testActivationId.testlabel');
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
   result = util.label('testLabel');
-  t.is(result, 'testNamespace.testAction.testActivationId.testlabel');
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
 
 })
