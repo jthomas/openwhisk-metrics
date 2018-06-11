@@ -9,7 +9,7 @@ const label = (label, config) => {
   // replace '.' chars with '_' as '.' is grafana label separator
   const escape = str => str.replace(/\./g, '_')
 
-  if (config.ignore_activation_ids === true) {
+  if (config != null && config.ignore_activation_ids === true) {
     return `${escape(ns)}.${escape(name)}.${label}`
   } else {
     return `${escape(ns)}.${escape(name)}.${actv}.${label}`
