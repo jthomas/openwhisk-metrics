@@ -3,7 +3,7 @@
   "description": "Node.js library to collect serverless application metrics from OpenWhisk actions",
   "author": "James Thomas <james@jamesthom.as>",
   "repository": "jthomas/openwhisk-metrics",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "index.js",
   "license": "MIT",
   "engines": {
