@@ -23,7 +23,7 @@ const metrics = fn => {
 
     const ts = timestamp()
     const data = util.flatten(after.map(
-      ([label, collector]) => util.merge(metrics.label(label), collector(result), ts)
+      ([label, collector]) => util.merge(metrics.label(label, metrics.config), collector(result), ts)
     ))
 
     await save_metrics(data)
@@ -34,7 +34,10 @@ const metrics = fn => {
 
 // converts metric name into fully qualified label
 metrics.label = util.label
-  
+
+// default config
+metrics.config = {};
+
 // default metrics to collect
 metrics.collect = {
   cpu: cpu(),

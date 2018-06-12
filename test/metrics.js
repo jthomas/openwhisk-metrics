@@ -4,6 +4,7 @@ import cpu from '../metrics/cpu'
 import error from '../metrics/error'
 import time from '../metrics/time'
 import coldstart from '../metrics/coldstart'
+import util from '../metrics/util'
 
 test('memory metric should return process memory', t => {
   const processMemUsage = process.memoryUsage()
@@ -73,4 +74,21 @@ test('cold start metric should return bool for first invocations', t => {
   t.is(cs(), 0)
   t.is(cs(), 0)
   t.is(cs(), 0)
+})
+
+test('util.label function should return label name with or without activation id based on config parameter', t => {
+  process.env['__OW_NAMESPACE'] = 'testNamespace';
+  process.env['__OW_ACTION_NAME'] = '/testNamespace/testName';
+  process.env['__OW_ACTIVATION_ID']= 'testActivationId';
+  let result = util.label('testLabel', {});
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
+  result = util.label('testLabel', {"ignore_activation_ids": null});
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
+  result = util.label('testLabel', {"ignore_activation_ids": true});
+  t.is(result, 'testNamespace.testName.testLabel');
+  result = util.label('testLabel', {"ignore_activation_ids": false});
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
+  result = util.label('testLabel');
+  t.is(result, 'testNamespace.testName.testActivationId.testLabel');
+
 })
